@@ -1,0 +1,13 @@
+{
+   "action": {
+      "default_icon": "assets/icon.png",
+      "default_title": "Save Clothing Image"
+   },
+   "author": "SnakySeek",
+   "description": "Saves Clothing As PNG's",
+   "manifest_version": 3,
+   "name": "Save Clothing Image",
+   "permissions": [],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0"
+}
