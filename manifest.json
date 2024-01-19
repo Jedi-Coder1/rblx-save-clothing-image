@@ -11,7 +11,7 @@
    "description": "Saves Clothing As PNG's",
    "manifest_version": 3,
    "name": "Save Clothing Image",
-   "permissions": [],
+   "permissions": [ "contextMenus" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
    "version": "1.0"
 }
