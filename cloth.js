@@ -1,8 +1,8 @@
 console.log("Save Clothing Image Injected Into Roblox")
 // Functions
 function ParseXML(data) {
-    parser = new DOMParser();
-    xmlDoc = parser.parseFromString(data, "text/xml");
+    var parser = new DOMParser();
+    var xmlDoc = parser.parseFromString(data, "text/xml");
     var roblox = xmlDoc.getElementsByTagName("roblox")[0]
     var Item = roblox.getElementsByTagName("Item")[0]
     var Properties = Item.getElementsByTagName("Properties")[0]
@@ -22,8 +22,7 @@ async function getAssetJson(url) {
     // Parse XML
     var parXML = ParseXML(XMLdata)
     var assetId = parXML.split("?id=").pop()
-    var libraryUrl = "https://www.roblox.com/library/" + assetId
-    console.log(libraryUrl)
+    return "https://www.roblox.com/library/" + assetId
 }
 // Getting Asset ID
 var step1 = window.location.href.split('catalog/').pop()
@@ -31,7 +30,8 @@ if (step1) {
     // Can Continue
     var assetLocation = step1.split("/")[0]
     if (!isNaN(assetLocation)) {
-        getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetLocation)
+        var libraryUrl = getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetLocation)
+        console.log(libraryUrl)
     } else {
         console.log("Not On Catalog Item")
     }
