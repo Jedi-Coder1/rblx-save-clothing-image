@@ -1,7 +1,5 @@
 console.log("Save Clothing Image Injected Into Roblox")
-var step1 = window.location.href.split('catalog/').pop()
-var assetLocation = step1.split("/")[0]
-
+// Functions
 function ParseXML(data) {
     parser = new DOMParser();
     xmlDoc = parser.parseFromString(data, "text/xml");
@@ -12,7 +10,6 @@ function ParseXML(data) {
     var url = Content.getElementsByTagName("url")[0]
     return String(url.childNodes[0].nodeValue)
 }
-
 async function getAssetJson(url) {
     // Json Response
     const JSONresponse = await fetch(url)
@@ -28,9 +25,14 @@ async function getAssetJson(url) {
     var libraryUrl = "https://www.roblox.com/library/" + assetId
     console.log(libraryUrl)
 }
-
-if (isNaN(assetLocation)) {
-    getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetLocation)
-} else {
-    console.log("Not On Catalog Item")
+// Getting Asset ID
+var step1 = window.location.href.split('catalog/').pop()
+if (step1) {
+    // Can Continue
+    var assetLocation = step1.split("/")[0]
+    if (!isNaN(assetLocation)) {
+        getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetLocation)
+    } else {
+        console.log("Not On Catalog Item")
+    }
 }
