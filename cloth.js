@@ -1,6 +1,6 @@
 console.log("Injected Into Roblox")
 var step1 = window.location.href.split('catalog/').pop()
-var assetId = step1.split("/")[0]
+var assetLocation = step1.split("/")[0]
 
 function ParseXML(data) {
     parser = new DOMParser();
@@ -10,7 +10,7 @@ function ParseXML(data) {
     var Properties = Item.getElementsByTagName("Properties")[0]
     var Content = Properties.getElementsByTagName("Content")[0]
     var url = Content.getElementsByTagName("url")[0]
-    return url.childNodes[0].nodeValue
+    return String(url.childNodes[0].nodeValue)
 }
 
 async function getAssetJson(url) {
@@ -24,7 +24,8 @@ async function getAssetJson(url) {
     var XMLdata = await XMLresponse.text()
     // Parse XML
     var parXML = ParseXML(XMLdata)
-    console.log(parXML)
+    var assetId = parXML.split("?id=").pop()
+    console.log(assetId)
 }
 
-getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetId)
+getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetLocation)
