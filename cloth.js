@@ -22,17 +22,14 @@ async function getAssetJson(url) {
     // Parse XML
     var parXML = ParseXML(XMLdata)
     var assetId = parXML.split("?id=").pop()
-    return "https://www.roblox.com/library/" + assetId
+    var libraryUrl = "https://www.roblox.com/library/" + assetId
+    console.log(libraryUrl)
 }
 // Getting Asset ID
 var step1 = window.location.href.split('catalog/').pop()
 if (step1) {
     // Can Continue
     var assetLocation = step1.split("/")[0]
-    if (!isNaN(assetLocation)) {
-        var libraryUrl = getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetLocation)
-        console.log(libraryUrl)
-    } else {
-        console.log("Not On Catalog Item")
-    }
+    if (!isNaN(assetLocation)) { getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetLocation)
+    } else { console.log("Not On Catalog Item") }
 }
