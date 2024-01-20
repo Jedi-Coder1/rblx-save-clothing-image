@@ -4,7 +4,7 @@
       "default_title": "Save Clothing Image"
    },
    "content_scripts": [{
-      "matches": ["*://*.roblox.com/*"],
+      "matches": ["*://*.roblox.com/catalog/*"],
       "js": ["cloth.js"]
   }],
    "author": "Jedi-Coder1",
