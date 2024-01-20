@@ -10,6 +10,14 @@ function ParseXML(data) {
     var url = Content.getElementsByTagName("url")[0]
     return String(url.childNodes[0].nodeValue)
 }
+function ParseHTML(HTML) {
+    var htmlParser = new DOMParser();
+    var htmlDoc = htmlParser.parseFromString(HTML, "text/html");
+    var AssetThumb = htmlDoc.getElementById("AssetThumbnail")
+    var span = AssetThumb.getElementsByClassName("thumbnail-span")[0]
+    var img = span.children[0]
+    return String(img.getAttribute("src"))
+}
 async function getAssetJson(url) {
     // Json Response
     const JSONresponse = await fetch(url)
@@ -23,7 +31,10 @@ async function getAssetJson(url) {
     var parXML = ParseXML(XMLdata)
     var assetId = parXML.split("?id=").pop()
     var libraryUrl = "https://www.roblox.com/library/" + assetId
-    console.log(libraryUrl)
+    // library page response
+    const Libresponse = await fetch(libraryUrl)
+    var Libdata = await Libresponse.text()
+    var imgSrc = ParseHTML(Libdata)
 }
 // Getting Asset ID
 var step1 = window.location.href.split('catalog/').pop()
