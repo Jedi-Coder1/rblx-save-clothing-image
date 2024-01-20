@@ -25,7 +25,12 @@ async function getAssetJson(url) {
     // Parse XML
     var parXML = ParseXML(XMLdata)
     var assetId = parXML.split("?id=").pop()
-    console.log(assetId)
+    var libraryUrl = "https://www.roblox.com/library/" + assetId
+    console.log(libraryUrl)
 }
 
-getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetLocation)
+if (isNaN(assetLocation)) {
+    getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetLocation)
+} else {
+    console.log("Not On Catalog Item")
+}
