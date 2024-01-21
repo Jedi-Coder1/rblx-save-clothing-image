@@ -3,11 +3,15 @@ function ParseXML(data) {
     var parser = new DOMParser();
     var xmlDoc = parser.parseFromString(data, "text/xml");
     var roblox = xmlDoc.getElementsByTagName("roblox")[0]
-    var Item = roblox.getElementsByTagName("Item")[0]
-    var Properties = Item.getElementsByTagName("Properties")[0]
-    var Content = Properties.getElementsByTagName("Content")[0]
-    var url = Content.getElementsByTagName("url")[0]
-    return String(url.childNodes[0].nodeValue)
+    if (typeof roblox == 'undefined' || roblox == null) {
+        return null
+    } else {
+        var Item = roblox.getElementsByTagName("Item")[0]
+        var Properties = Item.getElementsByTagName("Properties")[0]
+        var Content = Properties.getElementsByTagName("Content")[0]
+        var url = Content.getElementsByTagName("url")[0]
+        return String(url.childNodes[0].nodeValue)
+    }
 }
 function ParseLibraryPageHTML(HTML) {
     var htmlParser = new DOMParser();
@@ -27,21 +31,30 @@ async function getAssetJson(asset) {
     var XMLdata = await XMLresponse.text()
     // Parse XML
     var parXML = ParseXML(XMLdata)
-    var libraryUrl = "https://www.roblox.com/library/" + parXML.split("?id=").pop()
-    // library page response
-    const Libresponse = await fetch(libraryUrl)
-    var Libdata = await Libresponse.text()
-    var imgSrc = ParseLibraryPageHTML(Libdata)
-    var contextMenu = document.getElementById("item-context-menu")
-    var popover = contextMenu.getElementsByClassName("rbx-popover-content")[0]
-    var dropdown = popover.getElementsByClassName("dropdown-menu")[0]
-    var li = dropdown.getElementsByTagName("li")[0]
-    var libraryBtn = document.createElement("a")
-    var text = document.createTextNode("Open Library Page")
-    libraryBtn.appendChild(text)
-    libraryBtn.setAttribute("href", imgSrc)
-    libraryBtn.setAttribute("target", "_blank")
-    li.appendChild(libraryBtn)
+    var success = false
+    try {
+        var libraryUrl = "https://www.roblox.com/library/" + parXML.split("?id=").pop()
+        success = true
+    } catch (error) {
+        console.log(error)
+    } finally {
+        if (success) {
+            // library page response
+            const Libresponse = await fetch(libraryUrl)
+            var Libdata = await Libresponse.text()
+            var imgSrc = ParseLibraryPageHTML(Libdata)
+            var contextMenu = document.getElementById("item-context-menu")
+            var popover = contextMenu.getElementsByClassName("rbx-popover-content")[0]
+            var dropdown = popover.getElementsByClassName("dropdown-menu")[0]
+            var li = dropdown.getElementsByTagName("li")[0]
+            var libraryBtn = document.createElement("a")
+            var text = document.createTextNode("Open Library Page")
+            libraryBtn.appendChild(text)
+            libraryBtn.setAttribute("href", imgSrc)
+            libraryBtn.setAttribute("target", "_blank")
+            li.appendChild(libraryBtn)
+        }
+    }
 }
 window.onload = function() {
     console.log("Save Clothing Image Injected Into Roblox")
