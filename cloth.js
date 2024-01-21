@@ -10,7 +10,7 @@ function ParseXML(data) {
     var url = Content.getElementsByTagName("url")[0]
     return String(url.childNodes[0].nodeValue)
 }
-function ParseHTML(HTML) {
+function ParseLibraryPageHTML(HTML) {
     var htmlParser = new DOMParser();
     var htmlDoc = htmlParser.parseFromString(HTML, "text/html");
     var AssetThumb = htmlDoc.getElementById("AssetThumbnail")
@@ -34,7 +34,17 @@ async function getAssetJson(url) {
     // library page response
     const Libresponse = await fetch(libraryUrl)
     var Libdata = await Libresponse.text()
-    var imgSrc = ParseHTML(Libdata)
+    var imgSrc = ParseLibraryPageHTML(Libdata)
+    var contextMenu = document.getElementById("item-context-menu")
+    var popover = contextMenu.getElementsByClassName("rbx-popover-content")[0]
+    var dropdown = popover.getElementsByClassName("dropdown-menu")[0]
+    var li = dropdown.getElementsByTagName("li")[0]
+    var libraryBtn = document.createElement("a")
+    var text = document.createTextNode("Go To Library Page")
+    libraryBtn.appendChild(text)
+    libraryBtn.setAttribute("href", imgSrc)
+    libraryBtn.setAttribute("target", "_blank")
+    li.appendChild(libraryBtn)
 }
 // Getting Asset ID
 var step1 = window.location.href.split('catalog/').pop()
