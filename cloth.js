@@ -1,4 +1,3 @@
-console.log("Save Clothing Image Injected Into Roblox")
 // Functions
 function ParseXML(data) {
     var parser = new DOMParser();
@@ -44,11 +43,14 @@ async function getAssetJson(asset) {
     libraryBtn.setAttribute("target", "_blank")
     li.appendChild(libraryBtn)
 }
-// Getting Asset ID
-var step1 = window.location.href.split('catalog/').pop()
-if (step1) {
-    // Can Continue
-    var assetLocation = step1.split("/")[0]
-    if (!isNaN(assetLocation)) { getAssetJson(assetLocation)
-    } else { console.log("Not On Catalog Item") }
+window.onload = function() {
+    console.log("Save Clothing Image Injected Into Roblox")
+    // Getting Asset ID
+    var step1 = window.location.href.split('catalog/').pop()
+    if (step1) {
+        // Can Continue
+        var assetLocation = step1.split("/")[0]
+        if (!isNaN(assetLocation)) { getAssetJson(assetLocation)
+        } else { console.log("Not On Catalog Item") }
+    }
 }
