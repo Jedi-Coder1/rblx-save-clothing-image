@@ -18,7 +18,8 @@ function ParseLibraryPageHTML(HTML) {
     var img = span.children[0]
     return String(img.getAttribute("src"))
 }
-async function getAssetJson(url) {
+async function getAssetJson(asset) {
+    var url = "https://assetdelivery.roblox.com/v1/assetId/" + asset
     // Json Response
     const JSONresponse = await fetch(url)
     var JSONdata = await JSONresponse.json()
@@ -40,8 +41,9 @@ async function getAssetJson(url) {
     var dropdown = popover.getElementsByClassName("dropdown-menu")[0]
     var li = dropdown.getElementsByTagName("li")[0]
     var libraryBtn = document.createElement("a")
-    var text = document.createTextNode("Go To Library Page")
+    var text = document.createTextNode("Download Item Image")
     libraryBtn.appendChild(text)
+    libraryBtn.setAttribute("download", asset)
     libraryBtn.setAttribute("href", imgSrc)
     libraryBtn.setAttribute("target", "_blank")
     li.appendChild(libraryBtn)
@@ -51,6 +53,6 @@ var step1 = window.location.href.split('catalog/').pop()
 if (step1) {
     // Can Continue
     var assetLocation = step1.split("/")[0]
-    if (!isNaN(assetLocation)) { getAssetJson("https://assetdelivery.roblox.com/v1/assetId/" + assetLocation)
+    if (!isNaN(assetLocation)) { getAssetJson(assetLocation)
     } else { console.log("Not On Catalog Item") }
 }
