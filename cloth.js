@@ -23,15 +23,12 @@ async function getAssetJson(asset) {
     // Json Response
     const JSONresponse = await fetch(url)
     var JSONdata = await JSONresponse.json()
-    var JsonLocation = JSONdata["location"]
-    // console.log(JsonLocation)
     // XML Response
-    const XMLresponse = await fetch(JsonLocation)
+    const XMLresponse = await fetch(JSONdata["location"])
     var XMLdata = await XMLresponse.text()
     // Parse XML
     var parXML = ParseXML(XMLdata)
-    var assetId = parXML.split("?id=").pop()
-    var libraryUrl = "https://www.roblox.com/library/" + assetId
+    var libraryUrl = "https://www.roblox.com/library/" + parXML.split("?id=").pop()
     // library page response
     const Libresponse = await fetch(libraryUrl)
     var Libdata = await Libresponse.text()
@@ -41,9 +38,8 @@ async function getAssetJson(asset) {
     var dropdown = popover.getElementsByClassName("dropdown-menu")[0]
     var li = dropdown.getElementsByTagName("li")[0]
     var libraryBtn = document.createElement("a")
-    var text = document.createTextNode("Download Item Image")
+    var text = document.createTextNode("Open Library Page")
     libraryBtn.appendChild(text)
-    libraryBtn.setAttribute("download", asset)
     libraryBtn.setAttribute("href", imgSrc)
     libraryBtn.setAttribute("target", "_blank")
     li.appendChild(libraryBtn)
