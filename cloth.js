@@ -36,7 +36,7 @@ async function getAssetJson(asset) {
         var libraryUrl = "https://www.roblox.com/library/" + parXML.split("?id=").pop()
         success = true
     } catch (error) {
-        console.log(error)
+        // Error Happened
     } finally {
         if (success) {
             // library page response
