@@ -46,13 +46,15 @@ async function getAssetJson(asset) {
             var contextMenu = document.getElementById("item-context-menu")
             var popover = contextMenu.getElementsByClassName("rbx-popover-content")[0]
             var dropdown = popover.getElementsByClassName("dropdown-menu")[0]
-            var li = dropdown.getElementsByTagName("li")[0]
+
+            var li = document.createElement("li")
             var libraryBtn = document.createElement("a")
             var text = document.createTextNode("Open Image In New Tab")
             libraryBtn.appendChild(text)
             libraryBtn.setAttribute("href", imgSrc)
             libraryBtn.setAttribute("target", "_blank")
             li.appendChild(libraryBtn)
+            dropdown.appendChild(li)
         }
     }
 }
