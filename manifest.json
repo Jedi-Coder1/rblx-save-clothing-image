@@ -1,7 +1,6 @@
 {
-   "action": {
-      "default_icon": "assets/icon.png",
-      "default_title": "Save Clothing Image"
+   "icons": {
+      "150": "assets/icon.png"
    },
    "content_scripts": [{
       "matches": ["*://*.roblox.com/catalog/*"],
